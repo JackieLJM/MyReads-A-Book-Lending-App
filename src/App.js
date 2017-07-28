@@ -11,8 +11,8 @@ class BooksApp extends React.Component {
   render() {
     return (
       <div className="app">
-        <Router path='/' render={< ListBooks />}/>
-        <Router path='/search' render={< SearchBooks />}/>
+        <Router path='/' component={ListBooks}/>
+        <Router path='/search' component={SearchBooks}/>
       </div>
     )
   }
