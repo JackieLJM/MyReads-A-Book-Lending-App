@@ -10,13 +10,13 @@ class BooksApp extends React.Component {
     books:[]
   }
   componentDidMount() {
-    BooksAPI.getAll().then((books)=>{this.setState({books:books})})
+    BooksAPI.getAll().then((books)=>{this.setState({books})})
   }
   render() {
     return (
       <div className="app">
-        <Route exact path='/' component={ListBooks}/>
-        <Route path='/search' component={SearchBooks}/>
+        <Route exact path='/' render={()=><ListBooks/>}/>
+        <Route path='/search' render={()=><SearchBooks/>}/>
       </div>
     )
   }
