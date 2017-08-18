@@ -2,7 +2,7 @@ import React from 'react';
 
 class CreateBook extends React.Component {
   state = {
-    booktype: []
+    shelf: ''
   }
   render() {
     return (
