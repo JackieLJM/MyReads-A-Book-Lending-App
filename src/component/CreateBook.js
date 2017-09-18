@@ -4,33 +4,26 @@ import PropTypes from 'prop-types';
 class CreateBook extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      shelf: ''
-    };
+    this.state={
+      shelf:props.book.shelf
+    }
     this.changeShelf = this
       .changeShelf
       .bind(this);
   }
   static propTypes = {
-    book: PropTypes
-      .shape({
-      width: PropTypes.number.isRequired,
-      height: PropTypes.number.isRequired,
-      backgroundImage: PropTypes.string.isRequired,
+    book: PropTypes.shape({
       title: PropTypes.string.isRequired,
-      authors: PropTypes
-        .arrayOf(PropTypes.string.isRequired),
-      imageLinks:PropTypes.shape({thumbnail:PropTypes.string.isRequired}).isRequired
-        .isRequired
-    })
-      .isRequired
+      authors: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+      imageLinks: PropTypes.shape({thumbnail: PropTypes.string.isRequired}).isRequired,
+      shelf:PropTypes.string.isRequired
+    }).isRequired
   }
 
   changeShelf = (event) => this.setState({shelf: event.target.value})
 
   render() {
-    // const {width, height, backgroundImage, title, authors} = this.props;
-    const {book}=this.props;
+    const {book} = this.props;
     return (
       <li>
         <div className="book">
@@ -38,10 +31,10 @@ class CreateBook extends React.Component {
             <div
               className="book-cover"
               style={{
-              // width: book.width,
-              // height: book.height,
-              // backgroundImage: book.imageLinks?(`url(${book.backgroundImage||book.imageLinks.thumbnail})`):''
-            }}></div>
+              width: 128,
+              height: 170,
+              backgroundImage: `url('${book.imageLinks.thumbnail}')` /*book.imageLinks?(`url(${book.backgroundImage||book.imageLinks.thumbnail})`):''*/
+              }}></div>
             <div className="book-shelf-changer">
               <select onClick={this.changeShelf}>
                 <option value="none" disabled>Move to...</option>
@@ -52,12 +45,24 @@ class CreateBook extends React.Component {
               </select>
             </div>
           </div>
-          <div className="book-title">{/*book.title*/}
+          <div className="book-title">{book.title}
           </div>
-          <div className="book-authors">{/*book.authors*/}</div>
+          <div className="book-authors">{book.authors}</div>
         </div>
       </li>
     )
+  }
+}
+
+CreateBook.defaultProps = {
+  book: {
+    // backgroundImage: '',
+    title: '',
+    authors: [],
+    imageLinks: {
+      thumbnail: ''
+    },
+    shelf:''
   }
 }
 

@@ -8,18 +8,18 @@ class ListBooks extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      books: [],
-      shelf: ''
-    };
+      books: []
+    }
   }
 
-  componentDidMount() {
+  componentWillMount() {
     BookAPI
       .getAll()
       .then((books) => this.setState({books}));
   }
+
   render() {
-    const bookss=this.state.books[0];
+    const bookss = this.state.books[0];
     return (
       <div className="list-books">
         <div className="list-books-title">
@@ -31,17 +31,8 @@ class ListBooks extends React.Component {
               <h2 className="bookshelf-title">Currently Reading</h2>
               <div className="bookshelf-books">
                 <ol className="books-grid">
-                  {/*<Book
-                    width={BooksData[0].width}
-                    height={BooksData[0].height}
-                    backgroundImage={BooksData[0].backgroundImage}
-                    title={BooksData[0].bookTitle}
-                    authors={BooksData[0].bookAuthors}/>*/}
-                 <Book
-                    book={this.state.books[0]}
-                    // backgroundImage={''}
-                    // authors={this.state.books[0].authors}
-                  />
+                  <Book book={bookss}/>
+                  <Book book={this.state.books[1]}/>
                   <li>
                     <div className="book">
                       <div className="book-top">
