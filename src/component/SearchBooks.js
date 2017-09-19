@@ -1,16 +1,26 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import CreateBook from './CreateBook.js';
+import Book from './CreateBook.js';
+import * as BooksAPI from '../utils/BooksAPI';
+import DebounceInput from 'react-debounce-input';
 
 class SearchBooks extends React.Component {
   state = {
+    books:[],
     query:''
   }
   updateQuery=(query)=>(this.setState({query:query.trim()}))
   
-
+  // search=(query)=>(BooksAPI.search(query,15).then((books)=>this.setState({books:books})))
+  // componentDidMount() {
+    
+  // }
   render() {
-    const {query}=this.state;
+    const {query,books}=this.state;
+    if(query!==''){
+      BooksAPI.search(query).then((books)=>this.setState({books:books})).catch()
+    }
+    // console.log(books);
     return (
       <div className="search-books">
         <div className="search-books-bar">
@@ -20,11 +30,13 @@ class SearchBooks extends React.Component {
         You can find these search terms here:https://github.com/udacity/reactnd-project-myreads-starter/blob/master/SEARCH_TERMS.md
         However, remember that the BooksAPI.search method DOES search by title or author.
         So, don't worry if youdon't find a specific author or title. Every search is limited by search terms.*/}
-            <input type="text" placeholder="Search by title or author" value={query} onChange={(event) => this.updateQuery(event.target.value)}/>
+            <DebounceInput type="text" debounceTimeout={300} placeholder="Search by title or author" value={query} onChange={(event) => this.updateQuery(event.target.value)}/>
           </div>
         </div>
         <div className="search-books-results">
-          <ol className="books-grid">{}</ol>
+          <ol className="books-grid">
+            {query===''?null:books.map((book)=><Book key={book.id} book={book}/>)}
+          </ol>
         </div>
       </div>
     )
