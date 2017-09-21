@@ -2,15 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 class CreateBook extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state={
-      shelf:props.book.shelf
-    }
-    this.changeShelf = this
-      .changeShelf
-      .bind(this);
-  }
   static propTypes = {
     book: PropTypes.shape({
       title: PropTypes.string.isRequired,
@@ -20,10 +11,8 @@ class CreateBook extends React.Component {
     }).isRequired
   }
 
-  changeShelf = (event) => this.setState({shelf: event.target.value})
-
   render() {
-    const {book} = this.props;
+    const {book,changeShelf} = this.props;
     return (
       <li>
         <div className="book">
@@ -36,7 +25,7 @@ class CreateBook extends React.Component {
               backgroundImage: `url('${book.imageLinks.thumbnail}')` /*book.imageLinks?(`url(${book.backgroundImage||book.imageLinks.thumbnail})`):''*/
               }}></div>
             <div className="book-shelf-changer">
-              <select onClick={this.changeShelf}>
+              <select value={book.shelf} onChange={(event)=>changeShelf(book,event.target.value)}>
                 <option value="none" disabled>Move to...</option>
                 <option value="currentlyReading">Currently Reading</option>
                 <option value="wantToRead">Want to Read</option>
