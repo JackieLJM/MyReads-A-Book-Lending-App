@@ -2,7 +2,7 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 // import * as BooksAPI from '../utils/BooksAPI';
 import Book from './CreateBook.js';
-import localBooks from '../utils/BooksData';
+// import localBooks from '../utils/BooksData';
 
 class ListBooks extends React.Component {
   render() {

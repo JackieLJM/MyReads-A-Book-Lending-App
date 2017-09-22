@@ -1,15 +1,10 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
+
+// function authors (props){const {authors}=props; return <div className="book-authors">{authors.length>1?authors.join(','):authors}</div>}
 
 class CreateBook extends React.Component {
-  static propTypes = {
-    book: PropTypes.shape({
-      title: PropTypes.string.isRequired,
-      authors: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
-      imageLinks: PropTypes.shape({thumbnail: PropTypes.string.isRequired}).isRequired,
-      shelf:PropTypes.string.isRequired
-    }).isRequired
-  }
+  
 
   render() {
     const {book,changeShelf} = this.props;
@@ -36,7 +31,8 @@ class CreateBook extends React.Component {
           </div>
           <div className="book-title">{book.title}
           </div>
-          <div className="book-authors">{book.authors}</div>
+          <div className="book-authors">{Array.isArray(book.authors)?book.authors.join(', '):book.authors}
+          </div>
         </div>
       </li>
     )

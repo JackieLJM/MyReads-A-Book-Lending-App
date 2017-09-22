@@ -7,13 +7,17 @@ import DebounceInput from 'react-debounce-input';
 class SearchBooks extends React.Component {
   state = {
     books:[],
+    err:'',
     query:''
   }
   
-  search=(query)=>(BooksAPI.search(query,15).then((books)=>this.setState({books:books,query:query}))).catch(this.setState({books:[]}))
+  search=(query)=>(BooksAPI.search(query)
+  .then((books)=>this.setState({books:books,query:query}))
+  // .then((books)=>console.log(books))
+  .catch((error)=>this.setState({books:[],err:'Nothing that you search for the books you type here.'})))
 
   render() {
-    const {query,books}=this.state;
+    const {query,books,err}=this.state;
     
     // console.log(books);
     return (
@@ -32,6 +36,9 @@ class SearchBooks extends React.Component {
           <ol className="books-grid">
             {books===[]?null:books.map((book)=><Book key={book.id} changeShelf={this.props.changeShelf} book={book}/>)}
           </ol>
+          <div >
+            {err}
+          </div>
         </div>
       </div>
     )
