@@ -5,13 +5,38 @@ import Book from './CreateBook.js';
 // import localBooks from '../utils/BooksData';
 
 class ListBooks extends React.Component {
+  //持久化state
+  // onSearch = (e) => {
+  //   e.preventDefault();
+
+  //   const { value } = this.input;
+
+  //   if (value === '') {
+  //     return;
+  //   }
+
+  //   const cachedHits = localStorage.getItem(value);
+  //   if (cachedHits) {
+  //     this.setState({ hits: JSON.parse(cachedHits) });
+  //     return;
+  //   }
+
+  //   fetch('https://hn.algolia.com/api/v1/search?query=' + value)
+  //     .then(response => response.json())
+  //     .then(result => this.onSetResult(result, value));
+  // }
+
+  // onSetResult = (result, key) => {
+  //   localStorage.setItem(key, JSON.stringify(result.hits));
+  //   this.setState({ hits: result.hits });
+  // }
   render() {
     const remoteBooks = this.props.books;
     const current=(datas)=>(datas.filter((data)=>(data.shelf==='currentlyReading')));
     const wantTo=(datas)=>(datas.filter((data)=>(data.shelf==='wantToRead')));
     const read=(datas)=>(datas.filter((data)=>(data.shelf==='read')));
     
-
+    //获取远程books做本地持久化后再取用其来更新组件，如此，本地持久化毫无意义 
     let Books = [].concat(remoteBooks);    
     localStorage.setItem('books',JSON.stringify(Books));
     let storageBooks=JSON.parse(localStorage.books);
