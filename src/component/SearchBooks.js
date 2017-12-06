@@ -29,7 +29,8 @@ class SearchBooks extends React.Component {
         You can find these search terms here:https://github.com/udacity/reactnd-project-myreads-starter/blob/master/SEARCH_TERMS.md
         However, remember that the BooksAPI.search method DOES search by title or author.
         So, don't worry if youdon't find a specific author or title. Every search is limited by search terms.*/}
-            <DebounceInput type="text" debounceTimeout={500} placeholder="Search by title or author" value={query} onChange={(event) => this.search(event.target.value===''?null:event.target.value.trim())}/>
+            <DebounceInput type="text" debounceTimeout={500} placeholder="Search by title or author" 
+            value={query} onChange={(event) => this.search(event.target.value===''?null:event.target.value.trim())}/>
           </div>
         </div>
         <div className="search-books-results">
