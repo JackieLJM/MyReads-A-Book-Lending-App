@@ -5,16 +5,48 @@ import Book from './CreateBook.js';
 // import localBooks from '../utils/BooksData';
 
 class ListBooks extends React.Component {
+  
   render() {
     const remoteBooks = this.props.books;
     const current=(datas)=>(datas.filter((data)=>(data.shelf==='currentlyReading')));
     const wantTo=(datas)=>(datas.filter((data)=>(data.shelf==='wantToRead')));
     const read=(datas)=>(datas.filter((data)=>(data.shelf==='read')));
     
-
+    //获取远程books做本地持久化后再取用其来更新组件，如此，本地持久化毫无意义 
     let Books = [].concat(remoteBooks);    
     localStorage.setItem('books',JSON.stringify(Books));
     let storageBooks=JSON.parse(localStorage.books);
+
+    // 应该这样写，获取一组远程数据后存储为一组新键值，这样可以缓存查询的数据，而自己图书馆的数据每次更新数据到远程后要持久化到客户端避免
+    // 再次从远程获取数据应该？
+    // 参考该持久化state handler方法：
+    // onSearch = (e) => {
+    //   e.preventDefault();
+
+    //   const { value } = this.input;
+
+    //   if (value === '') {
+    //     return;
+    //   }
+
+    //   const cachedHits = localStorage.getItem(value);
+    //   if (cachedHits) {
+    //     this.setState({ hits: JSON.parse(cachedHits) });
+    //     return;
+    //   }
+
+    //   fetch('https://hn.algolia.com/api/v1/search?query=' + value)
+    //     .then(response => response.json())
+    //     .then(result => this.onSetResult(result, value));
+    // }
+
+    // onSetResult = (result, key) => {
+    //   localStorage.setItem(key, JSON.stringify(result.hits));
+    //   this.setState({ hits: result.hits });
+    // }
+
+
+
     return (
       <div className="list-books">
         <div className="list-books-title">

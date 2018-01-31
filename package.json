@@ -2,6 +2,7 @@
   "name": "myreads-a-book-lending-app",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://reading-book-webapp.firebaseapp.com/",
   "dependencies": {
     "prop-types": "^15.5.10",
     "react": "^15.6.1",
